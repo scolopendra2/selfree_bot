@@ -6,6 +6,7 @@ import requests
 from aiogram import types
 
 from keyboards.students import create_ikb_cancel
+from keyboards.students import start_kb
 from loader import dp, db, bot
 from models import User
 
@@ -104,4 +105,4 @@ async def cancel(call: types.CallbackQuery):
         requests.patch(url_for_cancel, data=json.dumps(data_cancel), headers=headers)
         last_mes_id = call.message.message_id
         await bot.delete_message(call.from_user.id, last_mes_id)
-        await call.message.answer("Ваш урок успешно отменён")
+        await call.message.answer("Ваш урок успешно отменён", reply_markup=start_kb)

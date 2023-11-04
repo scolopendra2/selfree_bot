@@ -9,6 +9,7 @@ from aiogram import types
 from keyboards.students.inlines import create_ikb_move, create_ikb_lessons
 from loader import dp, db
 from models import User
+from keyboards.students import start_kb
 
 
 def get_items(user):  # функция для получения уроков пользователя
@@ -65,7 +66,7 @@ def get_left_lesson(user):  # функция для получения оста�
 async def move(message: types.Message):
     user = db.query(User).filter(User.tg_user_id == message.from_user.id).first()
     if user is None:
-        await message.answer("Вы не вошли в аккаунт")
+        await message.answer("Вы не вошли в аккаунт", reply_markup=start_kb)
     else:
         remains = get_left_lesson(user)
         items = get_items(user)[::-1][:remains]
@@ -136,7 +137,7 @@ async def move_id(call: types.CallbackQuery):
 
     response_lesson = requests.post(url_lesson, data=json.dumps(data_check), headers=headers)
     if response_lesson.status_code == 200:
-        await call.message.answer('Ваш урок успешно перенесён')
+        await call.message.answer('Ваш урок успешно перенесён', reply_markup=start_kb)
     else:
-        await call.message.answer('Что-то пошло не так')
+        await call.message.answer('Что-то пошло не так', reply_markup=start_kb)
 

@@ -5,6 +5,6 @@ teacher_kb = ReplyKeyboardMarkup(
         [KeyboardButton(text='Отправить домашнее задание'), KeyboardButton(text='Прикрепить ссылку на урок')]
 
     ],
-    one_time_keyboard=True,
+    one_time_keyboard=False,
     resize_keyboard=True
 )

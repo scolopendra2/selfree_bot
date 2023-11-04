@@ -5,6 +5,7 @@ import json
 
 from loader import dp, db
 from models import User
+from keyboards.students import start_kb
 
 
 @dp.message_handler(text='Осталось уроков')
@@ -23,4 +24,4 @@ async def les_left(message: types.Message):
         }
         response_study = requests.post(url_study, data=json.dumps(data_check), headers=headers)
         remains = response_study.json()['items'][0]['paid_lesson_count']
-        await message.answer(f"Осталось уроков - {remains}")
+        await message.answer(f"Осталось уроков - {remains}", reply_markup=start_kb)

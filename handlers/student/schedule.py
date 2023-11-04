@@ -8,6 +8,7 @@ from aiogram import types
 
 from loader import dp, db, morph
 from models import User
+from keyboards.students import start_kb
 
 locale.setlocale(
     category=locale.LC_ALL,
@@ -48,7 +49,7 @@ def get_left_lesson(user):  # функция для получения оста�
 async def schedule(message: types.Message):
     check_in_table = db.query(User).filter(User.tg_user_id == message.from_user.id).first()
     if check_in_table is None:
-        await message.answer("Вы не вошли в аккаунт")
+        await message.answer("Вы не вошли в аккаунт", reply_markup=start_kb)
     else:
         user = check_in_table
         remains = get_left_lesson(user)
@@ -69,4 +70,6 @@ async def schedule(message: types.Message):
             string += (f'{number} Урок\n'
                        f'{day} {month_name} ({day_of_week})\n'
                        f'{time_from} - {time_to}\n\n')
-    await message.answer(string)
+        if string == '':
+            string = 'У вас не осталось уроков'
+    await message.answer(string, reply_markup=start_kb)

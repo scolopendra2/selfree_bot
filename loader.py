@@ -19,8 +19,7 @@ data = {
 }
 
 engine = create_engine(
-    f"mysql+pymysql://{config.MYSQL_USER}:{config.MYSQL_PASSWORD}@"
-    f"{config.MYSQL_HOST}:{config.MYSQL_PORT}/selfree_tg_bot_2"
+    "sqlite:///sqlite3.db"
 )
 
 local_session = sessionmaker(autoflush=False,

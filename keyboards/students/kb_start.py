@@ -7,6 +7,6 @@ start_kb = ReplyKeyboardMarkup(
         [KeyboardButton(text='Тех. Поддержка'), KeyboardButton(text='Выход')]
 
     ],
-    one_time_keyboard=True,
+    one_time_keyboard=False,
     resize_keyboard=True
 )
